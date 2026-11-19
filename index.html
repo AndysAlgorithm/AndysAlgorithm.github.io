@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="The Algorithm">
+  <meta name="application-name" content="The Algorithm">
+  <meta name="theme-color" content="#080c1a">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="TheAlgorithm-icon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="TheAlgorithm-icon.png">
+
+  <link rel="apple-touch-icon" href="TheAlgorithm-icon.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="TheAlgorithm-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="TheAlgorithm-icon.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="TheAlgorithm-icon.png">
+
+  <link rel="shortcut icon" href="TheAlgorithm-icon.png">
+
+  <link rel="manifest" href="manifest.json">
+
+  <title>The Algorithm</title>
+  <style>
+    /* ===================================
+       General / Page Layout
+    ==================================== */
+    html, body {
+      background-color: #080c1a;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      overscroll-behavior: none;
+    }
+
+    /* ===================
+       Universal Styles
+    ==================== */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-text-size-adjust: none;
+      text-size-adjust: none;
+    }
+
+    input, textarea {
+      font-size: 16px;
+    }
+
+    /* ===================
+       Main iframe
+    ==================== */
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      overflow: auto;
+      position: absolute;
+      top: env(safe-area-inset-top, 0px);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #080c1a;
+      overscroll-behavior: none;
+    }
+
+    /* ===================
+       Install Banner
+    ==================== */
+    #install-banner {
+      display: none;
+      text-align: center;
+      width: 95%;
+      min-width: 95%;
+      max-width: 95%;
+      margin: 0;
+      position: fixed;
+      bottom: 50%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 4px 1px 4px 4px;
+      border: 4px solid #df4100;
+      border-radius: 24px;
+      box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9) 0px 10px 13px;
+      z-index: 1001;
+    }
+
+    #install-banner button {
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      background: linear-gradient(135deg, #df4100, #7d0402);
+      color: white;
+      padding: 0;
+      font-weight: 900;
+      cursor: pointer;
+      border: none;
+      border-radius: 7px;
+      box-shadow: inset -2px -2px 5px 0px rgba(0, 0, 0, 0.9);
+      height: 35px;
+      width: 90px;
+    }
+
+    /* ===================
+       iOS Install Banner
+    ==================== */
+    #ios-install-banner {
+    display: none;
+    margin: 0;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 1px 4px 4px;
+    border: 4px solid #df4100;
+    border-radius: 24px;
+    box-shadow: inset -3px -2px 3px 1px rgba(0, 0, 0, 0.3), 5px 5px 13px 1px rgba(0, 0, 0, 1);
+    z-index: 1001;
+    text-align: left;
+    width: 96%;
+    min-width: 96%;
+    max-width: 96%;
+    backdrop-filter: blur(10px);
+    }
+
+    #ios-install-banner button {
+      position: absolute;
+      top: 7px;
+      right: 6px;
+      background: transparent;
+      border: 3px solid #df4100;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border-radius: 8px;
+    }
+
+    /* ===================
+       Banner Header/Icon
+    ==================== */
+    h3 {
+      margin: 5px 0 8px 0;
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+    #install-banner h3 {
+      margin: 5px 0 -5px 0;
+    }
+    .install-icon-header {
+    padding: 0px;
+    width: 45px;
+    height: 45px;
+    margin: 0 8px 0 3px;
+    vertical-align: middle;
+    outline: 1px solid #df4100;
+    border-radius: 8px;
+    box-shadow: inset -3px -2px 3px 1px rgba(0, 0, 0, 0.3);
+    object-fit: contain;
+    }
+
+    /* ===================
+      Install Details
+    ==================== */
+    .install-details-header {
+      margin: 0 0 7px 0;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      display: block;
+    }
+    .install-details {
+      font-size: 15px;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0 0 0 13px;
+      align-content: center;
+      line-height: 23px;
+      margin: 0px;
+      display: block;
+    }
+    strong {
+      font-size: 17px;
+    }
+    .install-icon {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      vertical-align: text-bottom;
+      padding: 0 4px;
+    }
+
+    /* ===================
+       Notification Styles
+    ==================== */
+    .notification {
+      margin: 0 0 15px 0;
+      font-size: 18px;
+      width: 350px;
+    }
+    .notification-button {
+      background-color: rgba(0, 0, 0, .9);
+      color: #df4100;
+      padding: 6px 0;
+      font-weight: 900;
+      cursor: pointer;
+      flex: 1;
+      width: 83px;
+      margin: 0 auto;
+      border: 4px solid;
+      border-radius: 9px;
+      box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9) 0px 3px 4px;
+    }
+    .notification-button:hover {
+      background-color: #df4100;
+      color: white;
+      border: none;
+    }
+
+    /* ===================
+       Preloader Styles
+    ==================== */
+    #preloader {
+      display: none;
+    }
+
+    @media (max-width: 1100px) {
+      #preloader {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 9999;
+        overflow: visible;
+        pointer-events: none;
+        transition: all 1.5s ease-in-out;
+        background-image: url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/Algorithm-wallpaper.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+      }
+
+      .preloader-fade-out {
+        opacity: .0;
+        background: url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/Algorithm-wallpaper.png) !important;
+        transform: scale(54) translateY(-255px);
+      }
+
+     @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(5px); }
+        50% {opacity: .7}
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @supports (padding: env(safe-area-inset-top)) {
+        body::before {
+          content: '';
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: env(safe-area-inset-top);
+          background: var(--header-color);
+          z-index: 2147483647;
+          pointer-events: none;
+        }
+      }
+    }
+
+    /* ===================
+       In-app browser escape overlay
+    ==================== */
+    #inapp-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 2147483647;
+      background: #080c1a;
+      color: #fff;
+      padding: 15px 15px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+    #inapp-overlay.show { display: flex; }
+    #inapp-overlay img.logo { width: 96px; height: 96px; border-radius: 16px; margin-bottom: 18px; object-fit: contain; outline: 1px solid #df4100; }
+    #inapp-overlay h2 { font-size: 22px; margin: 0 0 10px; }
+    #inapp-overlay p { font-size: 16px; line-height: 1.5; max-width: 460px; margin: 0 0 16px; color: #d7dce4; }
+    #inapp-overlay .open-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #df4100, #7d0402);
+      color: #fff;
+      font-size: 18px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 14px 26px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 6px 16px rgba(0,0,0,.5);
+    }
+    #inapp-overlay .ios-steps {
+      text-align: left;
+      background: rgba(255,255,255,.06);
+      border: 1px solid #df4100;
+      border-radius: 12px;
+      padding: 14px 18px;
+      max-width: 460px;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    #inapp-overlay .copy-btn {
+      margin-top: 14px;
+      background: transparent;
+      color: #fff;
+      border: 2px solid #df4100;
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    #inapp-overlay .url { font-size: 15px; color: #707070; margin-top: 14px; word-break: break-all; max-width: 460px; }
+  </style>
+</head>
+
+<body>
+
+  <!-- =======================
+       In-app browser (Facebook/Instagram) escape overlay
+  ======================== -->
+  <div id="inapp-overlay">
+    <img src="TheAlgorithm-icon.png" class="logo" alt="The Algorithm">
+    <h2>Sorry!<br>Please open in your browser</h2>
+    <p>The Algorithm site doesn't work within the Facebook / Instagram browser.<br><br>Please open it in your normal browser.</p>
+    <a id="inapp-open" class="open-btn" href="#">Open in Browser</a>
+    <div id="inapp-ios" class="ios-steps" style="display:none;">
+      - Tap the <strong>•••</strong> button in the corner, then choose <strong>“Open in external browser”</strong><br>- Or <strong>Copy link</strong> below.
+    </div>
+    <button id="inapp-copy" class="copy-btn" type="button">Copy link</button>
+    <div id="inapp-url" class="url"></div>
+  </div>
+
+  
+  <div id="preloader">
+  </div>
+
+  <!-- =======================
+       Install Banner Section
+  ======================== -->
+  <div id="install-banner" role="dialog" aria-labelledby="install-banner-title">
+    <h3 id="install-banner-title">
+      <img src="TheAlgorithm-icon.png" class="install-icon-header" alt="FFC Logo">
+      Install this on your device.
+    </h3>
+    <!-- <p style="margin: 5px;">Add 'The Algorithm' to Home Screen for the best experience</p> -->
+    <button id="install-button" aria-label="Add app to home screen">ADD</button>
+    <button id="dismiss-button" aria-label="Dismiss install prompt">DISMISS</button>
+  </div>
+
+  <!-- =======================
+       iOS Install Banner Section
+  ======================== -->
+  <div id="ios-install-banner" role="dialog" aria-labelledby="ios-install-banner-title">
+    <button id="ios-install-close" aria-label="Close iOS install banner">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#df4100" height="27" width="27" aria-hidden="true">
+        <path stroke="#df4100" stroke-width="2"
+          d="M3.6466666666666665 3.6466666666666665a0.5 0.5 0 0 1 0.7066666666666667 0L8 7.293333333333333l3.6466666666666665 -3.6466666666666665a0.5 0.5 0 1 1 0.7066666666666667 0.7066666666666667L8.706666666666667 8l3.6466666666666665 3.6466666666666665a0.5 0.5 0 1 1 -0.7066666666666667 0.7066666666666667L8 8.706666666666667l-3.6466666666666665 3.6466666666666665a0.5 0.5 0 0 1 -0.7066666666666667 -0.7066666666666667L7.293333333333333 8 3.6466666666666665 4.3533333333333335a0.5 0.5 0 0 1 0 -0.7066666666666667Z">
+        </path>
+      </svg>
+    </button>
+    <h3 id="ios-install-banner-title">
+      <img src="TheAlgorithm-icon.png" class="install-icon-header" alt="FFC Logo">
+      Install 'The Algorithm' on your device.
+    </h3>
+    <p class="install-details">
+      1. Tap the <strong>Share</strong> icon.
+      <img src="https://raw.githubusercontent.com/BobcatPGAMajors/BobcatPGAMajors.github.io/refs/heads/main/shareIcon.png" alt="Share icon" class="install-icon">
+    </p>
+    <p class="install-details">
+      2. Select <strong>Add to Home Screen</strong>.
+      <img src="https://script.google.com/macros/s/AKfycbyluzm5nUuPAtYVhNdGqj3e3u0cBGf9yzCIRPLWPOGBmrdZ3gxbHsDWKdE5fwTSnxXB/exec" alt="Home Screen icon" class="install-icon">
+    </p>
+    <p class="install-details" style="margin-bottom: 8px;">3. Tap <strong>Add</strong>.</p>
+  </div>
+
+  <!-- =======================
+       Main App iframe
+  ======================== -->
+  <iframe
+    id="sandboxFrame"
+    title="The Algorithm"
+    src="https://script.google.com/macros/s/AKfycbx2n1w3DZTgTNBdSRsCk1K_-sKLYk5KGf3DOWakM7mK66yzHGsGXD40v-2fza_rV69O/exec"
+    frameborder="0"
+    scrolling="yes"
+    allow="accelerometer *; ambient-light-sensor *; autoplay *; camera *; clipboard-read *; clipboard-write *; encrypted-media *; fullscreen *; geolocation *; gyroscope *; magnetometer *; microphone *; midi *; payment *; picture-in-picture *; screen-wake-lock *; speaker *; sync-xhr *; usb *; web-share *; vibrate *; vr *"
+    sandbox="allow-downloads allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-storage-access-by-user-activation"
+    >
+  </iframe>
+  
+  <script>
+    /* ===============================================================
+       In-app browser handling.
+       Facebook/Instagram/etc. open links in an embedded webview that
+       blocks the cookies Google Apps Script needs, so the iframe loads
+       blank. Detect that webview and push the user out to a real browser.
+       =============================================================== */
+    (function handleInAppBrowser() {
+      var ua = navigator.userAgent || navigator.vendor || '';
+      var inApp = /FBAN|FBAV|FB_IAB|FBIOS|Instagram|Messenger|Line\/|Snapchat|Pinterest|LinkedInApp|Twitter|MicroMessenger|GSA/i.test(ua);
+      if (!inApp) return;
+
+      var isAndroid = /Android/i.test(ua);
+      var isiOS = /iPhone|iPad|iPod/i.test(ua);
+      var url = window.location.origin + window.location.pathname;
+
+      var overlay = document.getElementById('inapp-overlay');
+      var openBtn = document.getElementById('inapp-open');
+      var iosSteps = document.getElementById('inapp-ios');
+      var copyBtn = document.getElementById('inapp-copy');
+      var urlBox = document.getElementById('inapp-url');
+
+      // Hide the preloader/iframe under the overlay.
+      var pre = document.getElementById('preloader'); if (pre) pre.style.display = 'none';
+      overlay.classList.add('show');
+      urlBox.textContent = url;
+
+      if (isAndroid) {
+        // Android can bounce straight out to Chrome via an intent URL.
+        var noScheme = url.replace(/^https?:\/\//, '');
+        var intentUrl = 'intent://' + noScheme + '#Intent;scheme=https;package=com.android.chrome;end';
+        openBtn.textContent = 'Open in Chrome';
+        openBtn.setAttribute('href', intentUrl);
+        // Try automatically; if it fails, the overlay/button is still there.
+        try { window.location.href = intentUrl; } catch (e) {}
+      } else if (isiOS) {
+        // iOS webviews can't be forced open; show manual steps.
+        iosSteps.style.display = 'block';
+        openBtn.style.display = 'none';
+      } else {
+        openBtn.setAttribute('href', url);
+      }
+
+      copyBtn.addEventListener('click', function () {
+        var done = function () { copyBtn.textContent = 'Link copied!'; };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(done, function () {});
+        } else {
+          var t = document.createElement('textarea');
+          t.value = url; document.body.appendChild(t); t.select();
+          try { document.execCommand('copy'); done(); } catch (e) {}
+          document.body.removeChild(t);
+        }
+      });
+    })();
+
+ document.addEventListener('DOMContentLoaded', function () {
+      const preloader = document.getElementById('preloader');
+      const iframe = document.querySelector('iframe');
+      iframe.onload = function () {
+        setTimeout(() => {
+          preloader.classList.add('preloader-fade-out');
+          setTimeout(() => {
+            preloader.style.display = 'none';
+          }, 2000);
+        }, 1750);
+      };
+    });
+
+    
+function isDesktop() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    // Check for common desktop-specific keywords in userAgent
+    const isDesktopUA = /windows nt|macintosh|linux/i.test(userAgent) && !/mobile|android|iphone|ipad|ipod/i.test(userAgent);
+    // Optionally, check screen width (e.g., > 1024px for desktop)
+    const isLargeScreen = window.innerWidth > 1024;
+    return isDesktopUA && isLargeScreen;
+}
+
+function isAndroid() {
+    return /Android/i.test(navigator.userAgent);
+}
+
+// Updated setupInstallPrompt function
+function setupInstallPrompt() {
+    const installBanner = document.getElementById('install-banner');
+    const iosInstallBanner = document.getElementById('ios-install-banner');
+    const installButton = document.getElementById('install-button');
+    const dismissButton = document.getElementById('dismiss-button');
+    const iosCloseButton = document.getElementById('ios-install-close');
+
+    // If on desktop, hide both banners and exit
+    if (isDesktop()) {
+        installBanner.style.display = 'none';
+        iosInstallBanner.style.display = 'none';
+        return;
+    }
+
+    // If already installed (standalone mode), hide both banners
+    if (isStandalone()) {
+        installBanner.style.display = 'none';
+        iosInstallBanner.style.display = 'none';
+        return;
+    }
+
+    // Only prompt once per device — if it was dismissed/installed before, stay hidden.
+    if (installDismissed()) {
+        installBanner.style.display = 'none';
+        iosInstallBanner.style.display = 'none';
+        return;
+    }
+
+    // Platform-specific handling for non-desktop devices
+    if (isIOS()) {
+        iosInstallBanner.style.display = 'block'; // Show iOS banner with instructions
+
+        // Close button (X): Hide the banner and remember not to show it again.
+        iosCloseButton.addEventListener('click', () => {
+            iosInstallBanner.style.display = 'none';
+            markInstallDismissed();
+        });
+    } else {
+        // Android/PC: Show install banner when beforeinstallprompt fires
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBanner.style.display = 'block';
+        });
+    }
+
+    // Install button for Android/PC
+    installButton.addEventListener('click', () => {
+        if (deferredPrompt) {
+            installBanner.style.display = 'none';
+            markInstallDismissed();
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                } else {
+                    console.log('User dismissed the install prompt');
+                }
+                deferredPrompt = null;
+            });
+        }
+    });
+
+    // Dismiss button for Android/PC banner
+    dismissButton.addEventListener('click', () => {
+        installBanner.style.display = 'none';
+        markInstallDismissed();
+    });
+}
+
+// Remembers (per device) that the user has already seen the install prompt, so it
+// only appears once. Wrapped in try/catch since some in-app browsers block storage.
+function installDismissed() {
+    try { return localStorage.getItem('ffcInstallDismissed') === '1'; }
+    catch (e) { return false; }
+}
+function markInstallDismissed() {
+    try { localStorage.setItem('ffcInstallDismissed', '1'); } catch (e) {}
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    setupInstallPrompt();
+
+});
+
+// Platform detection functions (unchanged)
+function isIOS() {
+    return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+function isStandalone() {
+    return window.matchMedia('(display-mode: standalone)').matches;
+}
+
+  </script>
+</body>
+
+</html>
