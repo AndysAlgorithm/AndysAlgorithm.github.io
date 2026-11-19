@@ -11,15 +11,15 @@
   <meta name="theme-color" content="#080c1a">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <link rel="icon" type="image/png" sizes="32x32" href="TheAlgorithm-icon.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="TheAlgorithm-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="TheAlgorithm_icon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="TheAlgorithm_icon.png">
 
-  <link rel="apple-touch-icon" href="TheAlgorithm-icon.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="TheAlgorithm-icon.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="TheAlgorithm-icon.png">
-  <link rel="apple-touch-icon" sizes="167x167" href="TheAlgorithm-icon.png">
+  <link rel="apple-touch-icon" href="TheAlgorithm_icon.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="TheAlgorithm_icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="TheAlgorithm_icon.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="TheAlgorithm_icon.png">
 
-  <link rel="shortcut icon" href="TheAlgorithm-icon.png">
+  <link rel="shortcut icon" href="TheAlgorithm_icon.png">
 
   <link rel="manifest" href="manifest.json">
 
@@ -94,8 +94,8 @@
       backdrop-filter: blur(10px);
       color: white;
       padding: 4px 1px 4px 4px;
-      border: 4px solid #2958a0;
-      border-radius: 24px;
+      border: 2px solid #2958a0;
+      border-radius: 8px;
       box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9) 0px 10px 13px;
       z-index: 1001;
     }
@@ -128,11 +128,11 @@
     bottom: 20px;
     left: 50%;
     transform: translate(-50%);
-    background: rgba(0, 0, 0, 0.7);
+    background: linear-gradient(180deg, #0c1326, #070c1a)
     color: white;
     padding: 4px 1px 4px 4px;
-    border: 4px solid #2958a0;
-    border-radius: 24px;
+    border: 2px solid #2958a0;
+    border-radius: 8px;
     box-shadow: inset -3px -2px 3px 1px rgba(0, 0, 0, 0.3), 5px 5px 13px 1px rgba(0, 0, 0, 1);
     z-index: 1001;
     text-align: left;
@@ -147,7 +147,7 @@
       top: 7px;
       right: 6px;
       background: transparent;
-      border: 3px solid #2958a0;
+      border: 2px solid #e21d0e;
       width: 30px;
       height: 30px;
       cursor: pointer;
@@ -177,7 +177,7 @@
     height: 45px;
     margin: 0 8px 0 3px;
     vertical-align: middle;
-    outline: 1px solid #2958a0;
+    outline: 1px solid #cb1108;
     border-radius: 8px;
     box-shadow: inset -3px -2px 3px 1px rgba(0, 0, 0, 0.3);
     object-fit: contain;
@@ -361,7 +361,7 @@
        In-app browser (Facebook/Instagram) escape overlay
   ======================== -->
   <div id="inapp-overlay">
-    <img src="TheAlgorithm-icon.png" class="logo" alt="The Algorithm">
+    <img src="TheAlgorithm_icon.png" class="logo" alt="The Algorithm">
     <h2>Sorry!<br>Please open in your browser</h2>
     <p>The Algorithm site doesn't work within the Facebook / Instagram browser.<br><br>Please open it in your normal browser.</p>
     <a id="inapp-open" class="open-btn" href="#">Open in Browser</a>
@@ -381,7 +381,7 @@
   ======================== -->
   <div id="install-banner" role="dialog" aria-labelledby="install-banner-title">
     <h3 id="install-banner-title">
-      <img src="TheAlgorithm-icon.png" class="install-icon-header" alt="FFC Logo">
+      <img src="TheAlgorithm_icon.png" class="install-icon-header" alt="FFC Logo">
       Install this on your device.
     </h3>
     <!-- <p style="margin: 5px;">Add 'The Algorithm' to Home Screen for the best experience</p> -->
@@ -395,13 +395,13 @@
   <div id="ios-install-banner" role="dialog" aria-labelledby="ios-install-banner-title">
     <button id="ios-install-close" aria-label="Close iOS install banner">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#2958a0" height="27" width="27" aria-hidden="true">
-        <path stroke="#2958a0" stroke-width="2"
+        <path stroke="#e21d0e" stroke-width="2"
           d="M3.6466666666666665 3.6466666666666665a0.5 0.5 0 0 1 0.7066666666666667 0L8 7.293333333333333l3.6466666666666665 -3.6466666666666665a0.5 0.5 0 1 1 0.7066666666666667 0.7066666666666667L8.706666666666667 8l3.6466666666666665 3.6466666666666665a0.5 0.5 0 1 1 -0.7066666666666667 0.7066666666666667L8 8.706666666666667l-3.6466666666666665 3.6466666666666665a0.5 0.5 0 0 1 -0.7066666666666667 -0.7066666666666667L7.293333333333333 8 3.6466666666666665 4.3533333333333335a0.5 0.5 0 0 1 0 -0.7066666666666667Z">
         </path>
       </svg>
     </button>
     <h3 id="ios-install-banner-title">
-      <img src="TheAlgorithm-icon.png" class="install-icon-header" alt="FFC Logo">
+      <img src="TheAlgorithm_icon.png" class="install-icon-header" alt="FFC Logo">
       Install 'The Algorithm' on your device.
     </h3>
     <p class="install-details">
